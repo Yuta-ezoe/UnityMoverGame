@@ -12,6 +12,9 @@ public class CubeMover : MonoBehaviour
 
 
 	private bool _isMoveAllow=false;
+	private bool _isInstansiate = false;
+
+	private float vecX;
 
 	public bool IsMoveAllow
 	{
@@ -23,13 +26,42 @@ public class CubeMover : MonoBehaviour
 
 	}
 
+	public bool IsInstansiate
+	{
+		set
+		{
+
+			this._isInstansiate = value;
+
+		}
+
+	}
+
+
 
 	// Update is called once per frame
 	void Update()
 	{
 
-		if (_isMoveAllow)
+
+		MovingObject();
+
+
+		if (_isInstansiate)
         {
+			vecX = Random.Range(0f, 10.0f);
+			Instantiate(gameObject, new Vector3(-8, vecX, 0), Quaternion.identity);
+			this._isInstansiate = false;
+
+		}
+
+	}
+
+	private void MovingObject()
+    {
+
+		if (_isMoveAllow)
+		{
 
 			GetComponent<Renderer>().material.color = Color.red;
 
@@ -52,11 +84,11 @@ public class CubeMover : MonoBehaviour
 
 
 		}
-		else 
-        {
+		else
+		{
 			GetComponent<Renderer>().material.color = originalColor.color;
-		} 
-
+		}
 
 	}
+
 }
